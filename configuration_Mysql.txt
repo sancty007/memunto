@@ -1,0 +1,129 @@
+1 - initiliser :
+
+.\mysqld.exe --defaults-files=C:\xampp\mysql\data\my.ini --initialize
+
+2 - Demarage de la Base de donnée : 
+
+.\mysql.exe --console
+
+3 - entrer dans la BD :
+
+.\mysql.exe -u root -p
+
+
+#Manipulation d'une Base de donnée : avec java 
+
+CREATE DATABASE bibliotheque;
+
+USE bibliotheque;
+
+# création des tables : 
+
+CREATE TABLE livres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(255),
+    auteur VARCHAR(255),
+    annee_publication INT
+);
+
+# insertion des elements dans le tableau :
+
+INSERT INTO livres (titre, auteur, annee_publication)
+VALUES
+    ('Le Seigneur des Anneaux', 'J.R.R. Tolkien', 1954),
+    ('1984', 'George Orwell', 1949),
+    ('Harry Potter à l\'école des sorciers', 'J.K. Rowling', 1997);
+
+
+
+Connexion à la base de donnée avec java :
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseConnection {
+    public static void main(String[] args) {
+        String jdbcUrl = "jdbc:mysql://localhost:3306/ma_base_de_donnees";// useSSL = false
+        String username = "ton_utilisateur";
+        String password = "ton_mot_de_passe";
+
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+            System.out.println("Connexion établie !");
+            // Ici tu peux effectuer des opérations sur la base de données
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+Voici un exemple simple d'exécution d'une requête de sélection :
+
+
+import java.sql.*;
+
+public class SelectExample {
+    public static void main(String[] args) {
+        String jdbcUrl = "jdbc:mysql://localhost:3306/ma_base_de_donnees";
+        String username = "ton_utilisateur";
+        String password = "ton_mot_de_passe";
+        String sql = "select * from livres";
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+            String sql = "SELECT * FROM ma_table";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                // Traite les données récupérées ici
+                System.out.println("ID : " + id + ", Nom : " + nom);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+la compilation :java -classpath ".;nomDupilote.jar" NomDuFichierJava
+
+
+Les méthodes `executeQuery()` et `executeUpdate()` sont toutes les deux utilisées pour exécuter des requêtes SQL dans Java via JDBC (Java Database Connectivity), mais elles sont utilisées dans des contextes différents et renvoient des résultats différents.
+
+1. **`executeQuery()` :**
+   - Cette méthode est utilisée pour exécuter des requêtes SQL qui retournent un ensemble de résultats, généralement obtenus à partir de clauses SELECT.
+   - Elle renvoie un objet `ResultSet`, qui contient les données résultantes de la requête. Vous pouvez parcourir cet objet pour accéder aux enregistrements et aux colonnes de résultat.
+   - Exemple d'utilisation :
+     ```java
+     String sql = "SELECT nom, prenom FROM utilisateurs";
+     ResultSet resultSet = statement.executeQuery(sql);
+     while (resultSet.next()) {
+         String nom = resultSet.getString("nom");
+         String prenom = resultSet.getString("prenom");
+         // Traiter les données ici
+     }
+     ```
+
+2. **`executeUpdate()` :**
+   - Cette méthode est utilisée pour exécuter des requêtes SQL qui modifient la base de données, comme les clauses INSERT, UPDATE ou DELETE.
+   - Elle renvoie un entier qui indique le nombre de lignes affectées par la requête.
+   - Exemple d'utilisation :
+     ```java
+     String sql = "INSERT INTO utilisateurs (nom, prenom) VALUES ('Doe', 'John')";
+     int rowsAffected = statement.executeUpdate(sql);
+     System.out.println("Nombre de lignes affectées : " + rowsAffected);
+     ```
+
+En résumé, la principale différence entre `executeQuery()` et `executeUpdate()` réside dans leur utilisation et les types de requêtes qu'elles traitent :
+
+- `executeQuery()` est utilisé pour exécuter des requêtes de sélection (SELECT) et renvoie un `ResultSet` contenant les résultats de la requête.
+- `executeUpdate()` est utilisé pour exécuter des requêtes de modification (INSERT, UPDATE, DELETE) et renvoie le nombre de lignes affectées par la requête.
+
+Assure-toi d'utiliser la méthode appropriée en fonction du type de requête que tu exécutes et de ce que tu souhaites accomplir avec la base de données.
+
