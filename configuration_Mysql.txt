@@ -127,3 +127,31 @@ En résumé, la principale différence entre `executeQuery()` et `executeUpdate(
 
 Assure-toi d'utiliser la méthode appropriée en fonction du type de requête que tu exécutes et de ce que tu souhaites accomplir avec la base de données.
 
+
+#les requêtes préparées en SQL lors de l'utilisation de JDBC (Java Database Connectivity) pour interagir avec une base de données. Les requêtes préparées sont une manière sécurisée et efficace d'exécuter des requêtes SQL en Java en permettant de passer des paramètres à la requête sans concaténer directement les valeurs dans la chaîne SQL.
+
+Voici comment et quand utiliser les points d'interrogation :
+
+1. **Création d'une requête préparée :** Lorsque tu prépares une requête SQL avec des paramètres variables, tu utilises les points d'interrogation pour indiquer où les valeurs des paramètres seront substituées.
+
+   Exemple :
+   ```java
+   String sql = "INSERT INTO utilisateurs (nom, prenom) VALUES (?, ?)";
+   PreparedStatement preparedStatement = connection.prepareStatement(sql);
+   preparedStatement.setString(1, "Doe");
+   preparedStatement.setString(2, "John");
+   ```
+
+2. **Utilisation de méthodes `set` :** Après avoir créé une requête préparée, tu utilises les méthodes `set` de l'objet `PreparedStatement` pour définir les valeurs des paramètres à la place des points d'interrogation.
+
+   Exemple :
+   ```java
+   preparedStatement.setString(1, "Doe");
+   preparedStatement.setString(2, "John");
+   ```
+
+3. **Sécurité et performances :** L'utilisation de points d'interrogation dans les requêtes préparées améliore la sécurité en empêchant les attaques d'injection SQL, car les valeurs des paramètres sont automatiquement échappées. De plus, les requêtes préparées peuvent également améliorer les performances, car elles peuvent être mises en cache par le système de gestion de base de données.
+
+4. **Types de données :** Les points d'interrogation peuvent être utilisés pour différents types de données (chaînes, entiers, etc.), et tu utilises les méthodes `set` appropriées pour chaque type.
+
+Il est important de noter que l'utilisation de requêtes préparées avec des points d'interrogation est une pratique recommandée pour interagir avec les bases de données en Java, car elle contribue à la sécurité et à l'efficacité de l'application.
