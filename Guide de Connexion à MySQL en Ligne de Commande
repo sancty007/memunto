@@ -1,0 +1,26 @@
+## Petite procedure pour executer mon serveur mysql en ligne de commande 
+
+1 - initiliser :
+
+.\mysqld.exe --defaults-files=C:\xampp\mysql\data\my.ini --initialize
+
+2 - Demarage de la Base de donnée : 
+
+.\mysql.exe --console
+
+3 - entrer dans la BD :
+
+.\mysql.exe -u root -p
+
+## Plus de détail sur la procedure 
+
+
+    -- Initialisation du serveur MySQL :
+        La commande .\mysqld.exe --defaults-files=C:\xampp\mysql\data\my.ini --initialize est utilisée pour initialiser le serveur MySQL en utilisant le fichier de configuration my.ini. Cette commande est souvent utilisée pour créer la structure initiale des fichiers de données de MySQL.
+
+    -- Démarrage du serveur MySQL :
+        Ensuite, .\mysql.exe --console est utilisé pour démarrer le serveur MySQL en mode console. Cela permet de visualiser les messages et les journaux directement dans la console pendant que le serveur fonctionne.
+
+    -- Connexion à la base de données :
+        Enfin, .\mysql.exe -u root -p est utilisé pour se connecter au serveur MySQL en tant qu'utilisateur root avec un mot de passe. Cette commande permet d'accéder à l'interface en ligne de commande MySQL où vous pouvez exécuter des requêtes SQL et interagir avec la base de données.
+
