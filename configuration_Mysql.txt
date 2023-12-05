@@ -1,16 +1,3 @@
-1 - initiliser :
-
-.\mysqld.exe --defaults-files=C:\xampp\mysql\data\my.ini --initialize
-
-2 - Demarage de la Base de donnée : 
-
-.\mysql.exe --console
-
-3 - entrer dans la BD :
-
-.\mysql.exe -u root -p
-
-
 #Manipulation d'une Base de donnée : avec java 
 
 CREATE DATABASE bibliotheque;
