@@ -2,7 +2,6 @@
 import java.sql.PreparedStatement;
 import java.sql.Connection ;
 import java.sql.DriverManager;
-//import java.sql.ResultSet;
 import java.sql.SQLException ; 
 
 
@@ -13,11 +12,13 @@ public class DatabaseConnection{
         String jdbcUrl = "jdbc:mysql://localhost:3306/bibliotheque";
         String username = "root";
         String password = "";
+        
         //String sql = "update livres set auteur ='sanctyMens' where id = 1";
          //String sql1 = "insert into livres(titre,auteur,annee_publication) values ('Au pays de mes reves' , 'sanctyMens', 2023)";
         //String sql2 = "delete from livres where id = 4";
 
         String sql1 = "insert into livres (titre,auteur,annee_publication) values (?,?,?)";
+        
         try {
             Connection conn = DriverManager.getConnection(jdbcUrl,username,password);
             System.out.println("la connexion etablie");
